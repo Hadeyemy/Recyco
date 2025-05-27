@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #F5F5F5;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+}
+
+.notification-icon {
+  font-size: 1.2em;
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  background-color: #C4C4C4;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.profile-info {
+  flex-grow: 1;
+}
+
+.edit-icon {
+  font-size: 1.2em;
+}
+
+#metrics {
+  display: flex;
+  justify-content: space-around;
+  background-color: #FFFFFF;
+  margin: 0 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.metric {
+  text-align: center;
+}
+
+#bin-station {
+  margin: 15px;
+}
+
+.station {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.map-placeholder {
+  height: 200px;
+  background-color: #E0E0E0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+}
+
+.map-placeholder span {
+  position: absolute;
+  background-color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+.map-placeholder span:first-of-type {
+  left: 20px;
+  bottom: 20px;
+}
+
+.map-placeholder span:last-of-type {
+  right: 20px;
+  top: 20px;
+}
+
+#materials-section {
+  display: flex;
+  gap: 10px;
+}
+
+.material {
+  flex: 1;
+  background-color: #FFFFFF;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+#bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  background-color: #FFFFFF;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  border-top: 1px solid #CCCCCC;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.bottom-nav div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .materials { flex-direction: column; }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Recyco</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Recyco</a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="schedule.html">Schedule Pickup</a></li>
+                <li><a href="payment.html" class="active">Payment</a></li>
+                <li><a href="tracking.html">Tracking</a></li>
+                <li><a href="stations.html">Pickup Stations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="payment-page">
+        <div class="payment-container">
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-items">
+                    <div class="summary-item">
+                        <span>Waste Collection (5kg)</span>
+                        <span>₦2,500</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Extra Weight (2kg)</span>
+                        <span>₦1,000</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Distance Fee</span>
+                        <span>₦500</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span>₦4,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-section">
+                <h2>Select Payment Method</h2>
+                
+                <div class="payment-methods">
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="bank-transfer">
+                        <img src="../images/bank-transfer.svg" alt="Bank Transfer">
+                        <div class="method-details">
+                            <h3>Bank Transfer</h3>
+                            <p>Pay directly from your bank account</p>
+                        </div>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="ussd">
+                        <i class="fas fa-mobile-alt"></i>
+                        <div class="method-details">
+                            <h3>USSD</h3>
+                            <p>Pay using USSD code</p>
+                        </div>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="card">
+                        <i class="fas fa-credit-card"></i>
+                        <div class="method-details">
+                            <h3>Card Payment</h3>
+                            <p>Debit/Credit Card</p>
+                        </div>
+                    </label>
+
+                    <label class="payment-method">
+                        <input type="radio" name="payment" value="paystack">
+                        <img src="../images/paystack.svg" alt="Paystack">
+                        <div class="method-details">
+                            <h3>Paystack</h3>
+                            <p>Fast & secure payment</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="payment-details" id="bankTransferDetails">
+                    <h3>Bank Transfer Details</h3>
+                    <div class="bank-info">
+                        <div class="bank-detail">
+                            <span>Bank Name:</span>
+                            <strong>First Bank</strong>
+                        </div>
+                        <div class="bank-detail">
+                            <span>Account Number:</span>
+                            <strong>0123456789</strong>
+                            <button class="btn-copy" onclick="copyToClipboard('0123456789')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="bank-detail">
+                            <span>Account Name:</span>
+                            <strong>RECYCO NIGERIA LIMITED</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-details" id="ussdDetails">
+                    <h3>USSD Payment</h3>
+                    <div class="ussd-steps">
+                        <p>Dial the USSD code for your bank:</p>
+                        <ul class="ussd-banks">
+                            <li>GTBank: *737*</li>
+                            <li>First Bank: *894*</li>
+                            <li>Access Bank: *901*</li>
+                            <li>UBA: *919*</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="payment-form" id="cardPaymentForm">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiryDate">Expiry Date</label>
+                            <input type="text" id="expiryDate" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-large" id="paymentButton">
+                    Pay ₦4,000
+                </button>
+
+                <div class="secure-payment">
+                    <i class="fas fa-lock"></i>
+                    <p>Your payment information is secure</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Recyco. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/payment.js"></script>
+</body>
+</html> 

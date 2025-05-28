@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking - Recyco</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Recyco</a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="schedule.html">Schedule Pickup</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="tracking.html" class="active">Tracking</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="tracking-page">
+        <div class="container">
+            <h1>Track Your Recycling</h1>
+
+            <div class="tracking-search">
+                <form id="trackingForm" class="tracking-form">
+                    <div class="search-box">
+                        <input type="text" id="trackingId" name="trackingId" 
+                               placeholder="Enter your tracking ID">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Track
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tracking-tabs">
+                <button class="tab-btn active" data-tab="pickup">
+                    <i class="fas fa-truck"></i> Nearby Pickup Trucks
+                </button>
+                <button class="tab-btn" data-tab="stations">
+                    <i class="fas fa-recycle"></i> Recycling Stations
+                </button>
+            </div>
+
+            <div id="pickupTab" class="tab-content active">
+                <div class="trucks-list">
+                    <!-- Truck cards will be dynamically added here -->
+                    <div class="truck-card">
+                        <div class="truck-header">
+                            <div class="truck-info">
+                                <h3>John Smith</h3>
+                                <p class="vehicle-number">Vehicle: RT-1234</p>
+                            </div>
+                            <span class="status status-active">En Route</span>
+                        </div>
+                        <div class="truck-details">
+                            <span><i class="fas fa-clock"></i> ETA: 10 mins</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 2.3 km away</span>
+                        </div>
+                    </div>
+
+                    <div class="truck-card">
+                        <div class="truck-header">
+                            <div class="truck-info">
+                                <h3>Sarah Johnson</h3>
+                                <p class="vehicle-number">Vehicle: RT-5678</p>
+                            </div>
+                            <span class="status">Available</span>
+                        </div>
+                        <div class="truck-details">
+                            <span><i class="fas fa-clock"></i> ETA: 15 mins</span>
+                            <span><i class="fas fa-map-marker-alt"></i> 3.1 km away</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="stationsTab" class="tab-content">
+                <div class="stations-list">
+                    <!-- Station cards will be dynamically added here -->
+                    <div class="station-card">
+                        <div class="station-header">
+                            <div class="station-info">
+                                <h3>Central Recycling Station</h3>
+                                <p class="address">123 Green Street, City Center</p>
+                            </div>
+                            <span class="status status-open">Open</span>
+                        </div>
+                        <div class="station-details">
+                            <p><i class="fas fa-map-marker-alt"></i> 1.5 km away</p>
+                            <div class="materials">
+                                <span class="material-tag">Plastic</span>
+                                <span class="material-tag">Paper</span>
+                                <span class="material-tag">Glass</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="station-card">
+                        <div class="station-header">
+                            <div class="station-info">
+                                <h3>North Station</h3>
+                                <p class="address">456 Eco Road, North District</p>
+                            </div>
+                            <span class="status status-open">Open</span>
+                        </div>
+                        <div class="station-details">
+                            <p><i class="fas fa-map-marker-alt"></i> 2.8 km away</p>
+                            <div class="materials">
+                                <span class="material-tag">Electronics</span>
+                                <span class="material-tag">Metal</span>
+                                <span class="material-tag">Glass</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Recyco. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/tracking.js"></script>
+</body>
+</html> 

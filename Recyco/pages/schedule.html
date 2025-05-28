@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Pickup - Recyco</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo.png" alt="Recyco Logo" class="logo-img">
+                <span>Recyco</span>
+            </a>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="schedule.html" class="active">Schedule Pickup</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="tracking.html">Tracking</a></li>
+                <li><a href="stations.html">Pickup Stations</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="schedule-page">
+        <div class="schedule-container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <span>Details</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <span>Location</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <span>Schedule</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <span>Confirm</span>
+                </div>
+            </div>
+
+            <form id="scheduleForm" class="schedule-form">
+                <!-- Step 1: Waste Details -->
+                <div class="form-step active" data-step="1">
+                    <h2>Waste Details</h2>
+                    <p class="step-description">Tell us about the waste you need to dispose of</p>
+                    
+                    <div class="waste-types">
+                        <label class="waste-type-card">
+                            <input type="checkbox" name="wasteType" value="plastic">
+                            <div class="card-content">
+                                <i class="fas fa-wine-bottle"></i>
+                                <h3>Plastic</h3>
+                                <p>Bottles, containers, packaging</p>
+                            </div>
+                        </label>
+
+                        <label class="waste-type-card">
+                            <input type="checkbox" name="wasteType" value="paper">
+                            <div class="card-content">
+                                <i class="fas fa-newspaper"></i>
+                                <h3>Paper</h3>
+                                <p>Newspapers, cardboard, magazines</p>
+                            </div>
+                        </label>
+
+                        <label class="waste-type-card">
+                            <input type="checkbox" name="wasteType" value="metal">
+                            <div class="card-content">
+                                <i class="fas fa-can-food"></i>
+                                <h3>Metal</h3>
+                                <p>Cans, aluminum, steel</p>
+                            </div>
+                        </label>
+
+                        <label class="waste-type-card">
+                            <input type="checkbox" name="wasteType" value="glass">
+                            <div class="card-content">
+                                <i class="fas fa-glass"></i>
+                                <h3>Glass</h3>
+                                <p>Bottles, jars, containers</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">Estimated Weight (kg)</label>
+                        <div class="weight-input">
+                            <button type="button" class="weight-btn" onclick="adjustWeight(-1)">-</button>
+                            <input type="number" id="weight" name="weight" value="5" min="1" max="100">
+                            <button type="button" class="weight-btn" onclick="adjustWeight(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Additional Notes</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="Any special instructions or details about your waste"></textarea>
+                    </div>
+                </div>
+
+                <!-- Step 2: Location Details -->
+                <div class="form-step" data-step="2">
+                    <h2>Pickup Location</h2>
+                    <p class="step-description">Where should we pick up your waste?</p>
+
+                    <div class="location-options">
+                        <label class="location-option">
+                            <input type="radio" name="locationType" value="current">
+                            <div class="option-content">
+                                <i class="fas fa-location-crosshairs"></i>
+                                <span>Use Current Location</span>
+                            </div>
+                        </label>
+
+                        <label class="location-option">
+                            <input type="radio" name="locationType" value="manual">
+                            <div class="option-content">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Enter Address Manually</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="manualAddress" class="address-form">
+                        <div class="form-group">
+                            <label for="street">Street Address</label>
+                            <input type="text" id="street" name="street" placeholder="Enter your street address">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City</label>
+                                <input type="text" id="city" name="city" placeholder="City">
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State</label>
+                                <select id="state" name="state">
+                                    <option value="">Select State</option>
+                                    <option value="lagos">Lagos</option>
+                                    <option value="abuja">Abuja</option>
+                                    <option value="rivers">Rivers</option>
+                                    <!-- Add more Nigerian states -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="landmark">Nearest Landmark</label>
+                            <input type="text" id="landmark" name="landmark" placeholder="E.g., Near First Bank">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Schedule Time -->
+                <div class="form-step" data-step="3">
+                    <h2>Pickup Schedule</h2>
+                    <p class="step-description">When should we pick up your waste?</p>
+
+                    <div class="calendar-section">
+                        <div class="date-picker">
+                            <div class="month-selector">
+                                <button type="button" class="month-nav prev">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3 id="currentMonth">March 2024</h3>
+                                <button type="button" class="month-nav next">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Calendar will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="time-slots">
+                            <h3>Available Time Slots</h3>
+                            <div class="slots-grid">
+                                <label class="time-slot">
+                                    <input type="radio" name="timeSlot" value="morning">
+                                    <div class="slot-content">
+                                        <i class="fas fa-sun"></i>
+                                        <span>Morning</span>
+                                        <small>8:00 AM - 12:00 PM</small>
+                                    </div>
+                                </label>
+
+                                <label class="time-slot">
+                                    <input type="radio" name="timeSlot" value="afternoon">
+                                    <div class="slot-content">
+                                        <i class="fas fa-cloud-sun"></i>
+                                        <span>Afternoon</span>
+                                        <small>12:00 PM - 4:00 PM</small>
+                                    </div>
+                                </label>
+
+                                <label class="time-slot">
+                                    <input type="radio" name="timeSlot" value="evening">
+                                    <div class="slot-content">
+                                        <i class="fas fa-moon"></i>
+                                        <span>Evening</span>
+                                        <small>4:00 PM - 8:00 PM</small>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Confirmation -->
+                <div class="form-step" data-step="4">
+                    <h2>Confirm Details</h2>
+                    <p class="step-description">Review your pickup details before confirming</p>
+
+                    <div class="confirmation-summary">
+                        <div class="summary-section">
+                            <h3><i class="fas fa-box"></i> Waste Details</h3>
+                            <div id="wasteDetailsSummary" class="summary-content">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> Pickup Location</h3>
+                            <div id="locationSummary" class="summary-content">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3><i class="fas fa-calendar-alt"></i> Schedule</h3>
+                            <div id="scheduleSummary" class="summary-content">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="price-summary">
+                            <div class="price-row">
+                                <span>Base Price (5kg)</span>
+                                <span>₦2,500</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Extra Weight Fee</span>
+                                <span id="extraWeightFee">₦0</span>
+                            </div>
+                            <div class="price-row">
+                                <span>Distance Fee</span>
+                                <span>₦500</span>
+                            </div>
+                            <div class="price-row total">
+                                <span>Total</span>
+                                <span id="totalPrice">₦3,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="prevStep()">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="schedule.html"><i class="fas fa-truck"></i> Schedule Pickup</a></li>
+                    <li><a href="stations.html"><i class="fas fa-map-marker-alt"></i> Pickup Stations</a></li>
+                    <li><a href="tracking.html"><i class="fas fa-search"></i> Track Order</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-phone"></i> +234 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@recyco.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Lagos, Nigeria</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-clock"></i> Monday - Friday: 8AM - 8PM</p>
+                    <p><i class="fas fa-clock"></i> Saturday: 9AM - 6PM</p>
+                    <p><i class="fas fa-clock"></i> Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="currentYear">2025</span> Recyco. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/schedule.js"></script>
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html> 

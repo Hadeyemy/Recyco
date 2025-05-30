@@ -5,7 +5,6 @@
 }
 
 body {
-  margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #F5F5F5;
 }
@@ -19,9 +18,29 @@ header {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+#header div h1 {
+  font-size: 2em;
+  color: black;
+  margin-top: 15px;
+  margin-left: 0px;
+}
+
+#header div button {
+  font-size: 1em;
+  color: black;
+  padding: 3px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+
+.header-left {
+  display: flex;
+}
+
 .logo {
-  width: 30px;
-  height: 30px;
+  width: 75px;
+  height: 75px;
 }
 
 .notification-icon {
@@ -70,6 +89,16 @@ header {
   margin: 15px;
 }
 
+#bin-station a {
+  text-decoration: none;
+  color: black;
+}
+
+#bin-station a:hover {
+  text-decoration: none;
+  color: rgb(35, 146, 45);
+}
+
 .station {
   display: flex;
   justify-content: space-between;
@@ -104,13 +133,27 @@ header {
 }
 
 #materials-section {
-  display: flex;
   gap: 10px;
+  margin: 15px;
+}
+
+#materials-section a {
+  color: black;
+  text-decoration: none;
+}
+
+#materials-section a:hover {
+  color: rgb(35, 146, 45);
+}
+.material-1 {
+  display: flex;
+  justify-content: space-between;
 }
 
 .material {
   flex: 1;
   background-color: #FFFFFF;
+  margin: 5px;
   padding: 15px;
   text-align: center;
   border-radius: 10px;
@@ -119,23 +162,27 @@ header {
 #bottom-nav {
   display: flex;
   justify-content: space-around;
-  background-color: #FFFFFF;
+  background-color: #16980f;
   padding: 10px 0;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
   border-top: 1px solid #CCCCCC;
 }
 
-.bottom-nav a {
+#bottom-nav a {
   text-decoration: none;
   color: black;
 }
 
-.bottom-nav div {
+#bottom-nav div {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#bottom-nav a:hover {
+  background-color: #d3e4d2;
 }
 
 @media (max-width: 600px) {

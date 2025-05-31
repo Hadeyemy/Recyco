@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard - Recyco</title>
+    
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-sA+4gRkkX0kjKscdThTL4WW2WoH4RG14D2F5JuKZ0jQ="
+        crossorigin=""
+    />
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Dashboard specific styles */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--navbar-height);
+        }
+
+        .sidebar {
+            width: 250px;
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            position: fixed;
+            height: calc(100vh - var(--navbar-height));
+            top: var(--navbar-height);
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar nav li {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar nav li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar nav li.active {
+            background: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--background-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card p {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .card button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Map container styling */
+        #map {
+            height: 250px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Chart container styling */
+        #metricsChart {
+            max-width: 100%;
+            height: 250px;
+            margin-top: 0.75rem;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 2px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content.sidebar-active {
+                margin-left: 250px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                transition: 0.3s;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main-content.sidebar-active {
+                margin-left: 0;
+            }
+        }
+
+        /* Menu Toggle Animation */
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Sidebar Toggle Button */
+        .sidebar-toggle {
+            position: fixed;
+            left: 10px;
+            bottom: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .sidebar-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo.svg" alt="Recyco Logo" class="logo-img">
+                <span>Recyco</span>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+            <button class="nav-close" aria-label="Close navigation menu" type="button"></button>
+                <li><a href="../index.html">Home</a></li>
+                <li class="protected-link"><a href="schedule.html">Schedule Pickup</a></li>
+                <li class="protected-link"><a href="payment.html">Payment</a></li>
+                <li class="protected-link"><a href="tracking.html">Tracking</a></li>
+                <li class="protected-link"><a href="stations.html">Pickup Stations</a></li>
+                <li class="protected-link"><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li class="logout-btn"><a href="#" onclick="handleLogout(event)" class="btn btn-secondary">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <aside class="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li id="user-tab" onclick="showSection('user')" class="active">User Dashboard</li>
+                    <li id="admin-tab" onclick="showSection('admin')">Admin Dashboard</li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="userDashboard" class="dashboard-section">
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h2>Recent Pickups</h2>
+                        <p>You have 2 scheduled pickups this week</p>
+                        <button onclick="window.location.href='schedule.html'">Schedule New</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>Recycling Stats</h2>
+                        <p>Total recycled this month: 45kg</p>
+                        <div id="metricsChart"></div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Nearest Station</h2>
+                        <p>Central Recycling Station</p>
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Rewards</h2>
+                        <p>Points: 1,250</p>
+                        <button>Redeem Points</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="adminDashboard" class="dashboard-section" style="display: none;">
+                <!-- Admin dashboard content -->
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <h2>Total Users</h2>
+                        <p>Active users: 1,234</p>
+                        <button>View Details</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>Pickups Today</h2>
+                        <p>Scheduled: 45</p>
+                        <p>Completed: 32</p>
+                        <button>Manage Pickups</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>System Status</h2>
+                        <p>All systems operational</p>
+                        <button>View Logs</button>
+                    </div>
+
+                    <div class="card">
+                        <h2>Revenue</h2>
+                        <p>This Month: ₦450,000</p>
+                        <button>View Reports</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+
+    <!-- Leaflet JS -->
+    <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-o9N1j4MrCzUqDxb6AI3UB/vCSk0RVp4AzT3zMKU7CJo="
+        crossorigin=""
+    ></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Navigation JS -->
+    <script src="../js/navigation.js"></script>
+
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!checkAuth()) return;
+            
+            // Sidebar toggle functionality
+            const sidebarToggle = document.querySelector('.sidebar-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                mainContent.classList.toggle('sidebar-active');
+            });
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1024 &&
+                    !e.target.closest('.sidebar') && 
+                    !e.target.closest('.sidebar-toggle') && 
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('sidebar-active');
+                }
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 1024) {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('sidebar-active');
+                }
+            });
+        });
+
+        function showSection(section) {
+            const userDashboard = document.getElementById('userDashboard');
+            const adminDashboard = document.getElementById('adminDashboard');
+            const userTab = document.getElementById('user-tab');
+            const adminTab = document.getElementById('admin-tab');
+
+            if (section === 'user') {
+                userDashboard.style.display = 'block';
+                adminDashboard.style.display = 'none';
+                userTab.classList.add('active');
+                adminTab.classList.remove('active');
+            } else {
+                userDashboard.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                userTab.classList.remove('active');
+                adminTab.classList.add('active');
+            }
+        }
+
+        function handleLogout(event) {
+            event.preventDefault();
+            localStorage.removeItem('recyco_isLoggedIn');
+            localStorage.removeItem('recyco_username');
+            window.location.href = '../index.html';
+        }
+    </script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/navigation.js"></script>
+</body>
+</html> 

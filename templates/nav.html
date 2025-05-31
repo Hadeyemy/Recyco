@@ -1,0 +1,55 @@
+<!-- Protected Navigation (for logged-in users) -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/logo.svg" alt="Recyco Logo" class="logo-img">
+            <span>Recyco</span>
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation menu" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-wrapper">
+            <button class="nav-close" aria-label="Close navigation menu" type="button"></button>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li class="protected-link"><a href="schedule.html" onclick="return protectRoute()">Schedule Pickup</a></li>
+                <li class="protected-link"><a href="payment.html" onclick="return protectRoute()">Payment</a></li>
+                <li class="protected-link"><a href="tracking.html" onclick="return protectRoute()">Tracking</a></li>
+                <li class="protected-link"><a href="stations.html" onclick="return protectRoute()">Pickup Stations</a></li>
+                <li class="protected-link dashboard-link"><a href="dashboard.html" onclick="return protectRoute()">Dashboard</a></li>
+                <li class="logout-btn"><a href="#" onclick="handleLogout(event)">Logout</a></li>
+                <li class="login-btn"><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li class="signup-btn"><a href="login.html?signup=true" class="btn btn-secondary">Sign Up</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Public Navigation (for non-logged-in users) -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="../index.html" class="logo">
+            <img src="../images/logo.svg" alt="Recyco Logo" class="logo-img">
+            <span>Recyco</span>
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation menu" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="nav-wrapper">
+            <button class="nav-close" aria-label="Close navigation menu" type="button"></button>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="schedule.html">Schedule Pickup</a></li>
+                <li><a href="payment.html">Payment</a></li>
+                <li><a href="tracking.html">Tracking</a></li>
+                <li><a href="stations.html">Pickup Stations</a></li>
+                <li><a href="login.html" class="btn btn-primary">Login</a></li>
+                <li><a href="login.html?signup=true" class="btn btn-secondary">Sign Up</a></li>
+            </ul>
+        </div>
+    </div>
+</nav> 
